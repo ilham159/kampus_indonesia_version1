@@ -4,7 +4,7 @@
 
 <!-- Page Heading -->
 <h1 class="h3 mb-2 text-gray-800">Category</h1>
-<p class="mb-4">This pagea for showing category</p>
+<p class="mb-4">This page for showing category</p>
 
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
