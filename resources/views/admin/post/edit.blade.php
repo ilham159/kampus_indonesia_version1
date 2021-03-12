@@ -12,11 +12,11 @@
         <h6 class="m-0 font-weight-bold text-primary">Edit post</h6>
     </div>
     <div class="card-body">
-        <form action="{{ route('post.update')}}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('post.update', ['id' => $post->id]) }}" method="post" enctype="multipart/form-data">
             {{ csrf_field()}}
             <div class="form-group">
                 <label for="title">Title</label>
-                <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" value="{{ old('title') }}" placeholder="title">
+                <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" value="{{ $post->title }}" placeholder="title">
                 @error('title')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -24,11 +24,14 @@
                 @enderror
             </div>
             <div class="form-group">  
-                <label for="title">Category</label>
-                <select name="category_id" class="form-control  @error('category_id') is-invalid @enderror" value="{{ old('category_id') }}">
-                    <option value="">Choose Category</option>
+                <label for="category_id">Category</label>
+                <select name="category_id" class="form-control  @error('category_id') is-invalid @enderror" value="{{ $post->category_id }}">
                     @foreach($categories as $category)
-                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                    @if($post->category_id == $category->id)
+                    <option value="{{ $category->id }}" selected>{{ $category->name }}</option>
+                    @else
+                    <option value="{{ $category->id }}" selected>{{ $category->name }}</option>
+                    @endif
                     @endforeach
                 </select>
                 @error('category_id')
@@ -39,7 +42,7 @@
             </div>
             <div class="form-group">
                 <label for="content">Content</label>
-                <textarea name="content" class="form-control @error('content') is-invalid @enderror">{{ old('content') }}</textarea>
+                <textarea name="content" class="form-control @error('content') is-invalid @enderror">{{ $post->content }}</textarea>
                 @error('content')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
