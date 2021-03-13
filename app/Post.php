@@ -3,9 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model
 {
+    use softDeletes;
 
     protected $fillable = [
         'title', 'content', 'category_id', 'featured', 'slug', 'user_id'
@@ -15,6 +17,8 @@ class Post extends Model
     {
         return asset($featured);
     }
+
+    protected $dates = ['deleted_at'];
 
     public function category()
     {

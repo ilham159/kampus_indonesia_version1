@@ -14,8 +14,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('template.blog.index');
 });
+
+Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
+
 
 route::get('/categories', [
     'uses' => 'App\Http\Controllers\CategoryController@index',
@@ -37,7 +40,7 @@ Route::get('/category/edit/{id}', [
     'as' => 'category.edit'
 ]);
 
-Route::post('/category/update{id', [
+Route::post('/category/update{id}', [
     'uses' => 'App\Http\Controllers\CategoryController@update',
     'as' => 'category.update'
 ]);
@@ -67,15 +70,68 @@ Route::get('/post/edit/{id}', [
     'as' => 'post.edit'
 ]);
 
-Route::post('/post/update{id', [
+Route::post('/post/update{id}', [
     'uses' => 'App\Http\Controllers\PostController@update',
     'as' => 'post.update'
 ]);
 
-Route::get('/post/delete/{id}', [
+Route::get('/post/trash/{id}', [
+    'uses' => 'App\Http\Controllers\PostController@trash',
+    'as' => 'post.trash'
+]);
+
+Route::get('/post/trashed', [
+    'uses' => 'App\Http\Controllers\PostController@trashed',
+    'as' => 'post.trashed'
+]);
+
+Route::get('/post/restore{id}', [
+    'uses' => 'App\Http\Controllers\PostController@restore',
+    'as' => 'post.restore'
+]);
+
+Route::get('/post/delete{id}', [
     'uses' => 'App\Http\Controllers\PostController@delete',
     'as' => 'post.delete'
 ]);
+
+
+route::get('/tags', [
+    'uses' => 'App\Http\Controllers\TagsController@index',
+    'as' => 'tags'
+]);
+
+Route::get('/tag/create', [
+    'uses' => 'App\Http\Controllers\TagsController@create',
+    'as' => 'tag.create'
+]);
+
+Route::post('/tag/store', [
+    'uses' => 'App\Http\Controllers\TagsController@store',
+    'as' => 'tag.store'
+]);
+
+Route::get('/tag/edit/{id}', [
+    'uses' => 'App\Http\Controllers\TagsController@edit',
+    'as' => 'tag.edit'
+]);
+
+Route::post('/tag/update{id}', [
+    'uses' => 'App\Http\Controllers\TagsController@update',
+    'as' => 'tag.update'
+]);
+
+Route::get('/tag/delete/{id}', [
+    'uses' => 'App\Http\Controllers\TagsController@delete',
+    'as' => 'tag.delete'
+]);
+
+route::get('/blog', [
+    'uses' => 'App\Http\Controllers\BlogController@index',
+    'as' => 'blog'
+]);
+
+});
 
 Auth::routes();
 

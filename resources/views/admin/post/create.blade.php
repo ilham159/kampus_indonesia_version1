@@ -1,32 +1,25 @@
 @extends('layouts.sb-admin')
 
 @section('content')
-
-<!-- Page Heading -->
-<h1 class="h3 mb-2 text-gray-800">Post</h1>
-<p class="mb-4">This page for create post</p>
-
-<!-- DataTales Example -->
-<div class="card shadow mb-4">
-    <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Add post</h6>
+<div class="card">
+    <div class="card-header">
+        Create a new post
     </div>
+
     <div class="card-body">
-        <form action="{{ route('post.store')}}" method="post" enctype="multipart/form-data">
-            {{ csrf_field()}}
+        <form action="{{ route('post.store') }}" method="post" enctype="multipart/form-data">
+            {{ csrf_field() }}
             <div class="form-group">
                 <label for="title">Title</label>
-                <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" value="{{ old('title') }}" placeholder="title">
-                @error('title')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror
+                <input type="text" name="title" class="form-control">
             </div>
-            <div class="form-group">  
-                <label for="title">Category</label>
-                <select name="category_id" class="form-control  @error('category_id') is-invalid @enderror" value="{{ old('category_id') }}">
-                    <option value="">Choose Category</option>
+            <div class="form-group">
+                <label for="featured">Featured image</label>
+                <input type="file" name="featured" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="category">Select a Category</label>
+                <select name="category_id" id="category" class="form-control">
                     @foreach($categories as $category)
                     <option value="{{ $category->id }}">{{ $category->name }}</option>
                     @endforeach
@@ -38,24 +31,26 @@
                 @enderror
             </div>
             <div class="form-group">
-                <label for="content">Content</label>
-                <textarea name="content" class="form-control @error('content') is-invalid @enderror">{{ old('content') }}</textarea>
-                @error('content')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror
+                <label for="tag">Select a Tag</label>
+                @foreach($tags as $tag)
+                <div class="checbox">
+                    <label form="tag"><input type="checkbox" name="tag[]" value="{{ $tag->id }}">{{ $tag->tag}}</label>
+                </div>
+                @endforeach
             </div>
             <div class="form-group">
-                <label for="featured">Image</label>
-                <input type="file" name="featured" class="form-control" >
+                <label for="content">Content</label>
+                <textarea id="editor" name="content" cols="5" rows="5" id="textcontent" cols="30" rows="10" class="form-control"></textarea>
             </div>
-            <div class="from-group">
+
+            <div class="form-group">
                 <div class="text-center">
-                    <button class="btn btn-success" type="submit">Create</button>
+                    <button class="btn btn-success" type="submit">
+                        Store post
+                    </button>
                 </div>
             </div>
         </form>
     </div>
 </div>
-@endsection
+@stop

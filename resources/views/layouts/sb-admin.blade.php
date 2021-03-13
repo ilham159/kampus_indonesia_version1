@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>SB Admin 2 - Dashboard</title>
+  <title>Kampus Indonesia - Dashboard</title>
 
   <!-- Custom fonts for this template-->
   <link href="{{ asset('sb-admin/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -20,6 +20,8 @@
 
   <!-- Custom styles for this page -->
   <link href="{{ asset('sb-admin/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+
+  @toastr_css
 
 </head>
 
@@ -212,6 +214,10 @@
                   <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                   Activity Log
                 </a>
+                <a class="dropdown-item" href="/">
+                  <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                  website
+                </a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -227,7 +233,7 @@
 
         <!-- Begin Page Content -->
         <div class="container-fluid">
-            @yield('content')
+          @yield('content')
         </div>
         <!-- /.container-fluid -->
 
@@ -268,7 +274,11 @@
         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
+          <a class="btn btn-primary" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">Logout</a>
+          <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+            @csrf
+          </form>
         </div>
       </div>
     </div>
@@ -292,5 +302,10 @@
   <script src="{{ asset('sb-admin/js/demo/datatables-demo.js')}}"></script>
 
 </body>
-
+@toastr_js
+@toastr_render
+<script src="https://cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace( 'editor' );
+</script>
 </html>

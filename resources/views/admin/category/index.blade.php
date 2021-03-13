@@ -1,4 +1,4 @@
-@extends('layouts.sb-admin')
+@extends('layouts.templato')
 
 @section('content')
 

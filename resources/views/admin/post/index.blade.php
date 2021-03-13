@@ -18,6 +18,7 @@
                     <tr>
                         <th>Title</th>
                         <th>Category</th>
+                        <th>Image</th>
                         <th>Edit</th>
                         <th>Delete</th>
                     </tr>
@@ -27,8 +28,11 @@
                     <tr>
                         <td>{{ $post->title}}</td>
                         <td>{{ $post->category->name}}</td>
+                        <td>
+                            <img src="{{ asset($post->featured) }}" alt="{{ $post->title }}" width="90px" height="50px">
+                        </td>
                         <td><a href="{{ route('post.edit', ['id' => $post->id]) }}" class="btn btn-sm btn-info">Edit</a></td>
-                        <td><a href="" class="btn btn-sm btn-danger">Delete</a></td>
+                        <td><a href="{{ route('post.trash', ['id' => $post->id]) }}" class="btn btn-sm btn-danger">Trash</a></td>
                     </tr>
                     @endforeach
                 </tbody>
